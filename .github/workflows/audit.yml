@@ -1,0 +1,20 @@
+name: "audit"
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: oke-py/npm-audit-action@0cbdd1f2f35f3ce26155987b57379ef35173ec04
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          issue_assignees: oke-py
+          issue_labels: vulnerability
+          dedupe_issues: true
